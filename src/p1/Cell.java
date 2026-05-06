@@ -21,7 +21,7 @@ public class Cell implements Locatable{
     }
 
     public void printCell(){
-        if(alive) System.out.println(1); else System.out.println(0);
+        if(alive) System.out.print(1 + " "); else System.out.print(0 + " ");
     }
 
     @Override
@@ -63,4 +63,5 @@ public class Cell implements Locatable{
         }
         return false;
     }
+
 }
