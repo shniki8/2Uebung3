@@ -11,6 +11,11 @@ public class Board {
         this.rows = rows;
         this.cols = cols;
         grid = new Cell[this.rows][this.cols];
+        boolean valid = true;
+        if (this.rows == 0 || this.cols == 0){
+            valid = false;
+            System.out.println("Board can't have less than 1 columns and rows. Most operations will be blocked due to an empty board.");
+        }
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length ; j++) {
                 grid[i][j] = new Cell(i,j,this);
