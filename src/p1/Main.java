@@ -17,11 +17,25 @@ public class Main {
 
         grid[3][3].setAlive(true);
         grid[8][8].setAlive(true);
+        grid[0][0].setAlive(true);
 
         //board.printBoard();
         Queue<Cell> q = new LinkedList<Cell>();
         Queue<Cell> q2 = new ArrayDeque<Cell>(); //Funktioniert, da ArrayDeque Queue implementiert und ich auf keine spezifischen Methoden von LinkedList bzw. ArrayDeque zugegriffen habe, sondern lediglich auf die Methoden vom Interface Queue.
         q2 = board.getAlive();
         //board.spreadLife(q2);
+
+        Board board2 = new Board(16,16, new ConwayRule());
+        //Test Code D:
+        Cell[][] grid2 = board2.getGrid();
+
+        grid2[3][3].setAlive(true);
+        grid2[8][8].setAlive(true);
+        grid2[0][0].setAlive(true);
+        q = board2.getAlive();
+        board2.spreadLife(q);
+        board2.nextGeneration();
+        board2.printBoard();
+        //Seems to work.
     }
 }

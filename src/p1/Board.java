@@ -6,6 +6,7 @@ import java.util.Queue;
 public class Board {
     private Cell[][] grid;
     private int rows, cols;
+    private Rule rule;
 
     public Board(int rows, int cols){
         this.rows = rows;
@@ -21,7 +22,7 @@ public class Board {
                 grid[i][j] = new Cell(i,j,this);
 
 
-                // please dont look at this graveyard of code. Alas, the location was the Problem. Took Hours.
+                // please dont look at this graveyard of code. Alas, the location was the Problem. Took too long.
                 /*
                 if (i == 0 && j == 0 && i+1 <= grid.length && j+1 <= grid[0].length){
                     grid[i][j].setNeighbors(grid[i][j], grid[i][j+1], grid[i+1][j], grid[i][j]);
@@ -133,6 +134,16 @@ public class Board {
         //System.out.println("Hello World!");
 
     }
+    public Board(int rows, int cols, Rule rule){
+        this(rows, cols); //Wusste doch das man das tricksen kann ohne alles zu copy pasten
+        this.rule = rule;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                grid[i][j].setRule(this.rule);
+            }
+        }
+
+    }
 
     public boolean allAlive(){
         boolean b = true;
@@ -216,6 +227,22 @@ public class Board {
             }
         }
         return q;
+    }
+
+    public void nextGeneration(){
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                grid[i][j].computeNextAlive();
+
+            }
+        }
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                grid[i][j].updateAlive();
+
+            }
+        }
+
     }
 
 }

@@ -2,15 +2,41 @@ package p1;
 
 public class Cell implements Locatable{
     private boolean alive;
+    private boolean nextAlive;
     private int row=0, col=0;
     private Cell north, south, west, east; //lazy, I know. Not even an init.
     private Board board;
+    private Rule rule;
 
     public Cell(int row,int col,Board board){
+        this.row = row;
+        this.col = col;
+        this.board = board;
 
-
-
-
+    }
+    public Cell(int row, int col, Board board, Rule rule){
+        this.row = row;
+        this.col = col;
+        this.board = board;
+        this.rule = rule;
+    }
+    public void setRule(Rule r){
+        rule = r;
+    }
+    private int countLivingNeighbours(){
+        int count = 0; // haha die Lesbarkeit ist ja super wenn ich alles inline mache
+        if (this.getNorth()!=this) if (this.getNorth().isAlive()) count++;
+        if (this.getSouth()!=this) if (this.getSouth().isAlive()) count++;
+        if (this.getEast()!=this) if (this.getEast().isAlive()) count++;
+        if (this.getWest()!=this) if (this.getWest().isAlive()) count++;
+        return count;
+    }
+    public void computeNextAlive(){
+        int u = countLivingNeighbours();
+        nextAlive = rule.computeNextState(this.isAlive(),u);
+    }
+    public void updateAlive(){
+        alive = nextAlive;
     }
     public void setAlive(boolean a){
         alive = a;
